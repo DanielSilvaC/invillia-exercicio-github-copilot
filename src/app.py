@@ -62,18 +62,10 @@ def signup_for_activity(activity_name: str, email: str):
     # Get the specificy activity
     activity = activities[activity_name]
 
-    # Validate if student is already registered
+    # Validate if student is not already signed up
     if email in activity["participants"]:
         raise HTTPException(status_code=400, detail="Student already signed up for this activity")
 
     # Add student
     activity["participants"].append(email)
     return {"message": f"Signed up {email} for {activity_name}"}
-
-# Validate student is not already signed up
-def validate_registration(student_id):
-    # Check if the student is already signed up
-    if is_already_signed_up(student_id):
-        raise ValueError("Student is already signed up")
-    # Proceed with registration
-    register_student(student_id)
